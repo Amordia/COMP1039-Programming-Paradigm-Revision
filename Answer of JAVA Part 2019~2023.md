@@ -1,5 +1,3 @@
-[TOC]
-
 # 2022~2023
 
 ### 1. Object-Oriented Programming / Java / Programming paradigms (25 marks)
@@ -7,22 +5,27 @@
 #### (a) What is the output of the following Java statements: 
 
 (i)
+
 ```java
 SumList l1 = new SumList(2);
 System.out.println(l1.toString(5));
 ```
+
 **Output:**
+
 ```
 2; 2; 4; 6; 10
 ```
 
 (ii)
+
 ```java
 SumList l2 = new SumList(3);
 SumList l3 = l2.next().next();
 l3.value = 7;
 System.out.println(l3.prev.toString(6));
 ```
+
 **Output:**
 
 ```
@@ -30,10 +33,13 @@ System.out.println(l3.prev.toString(6));
 ```
 
 (iii)
+
 ```java
 System.out.println(l1.next().value * l3.next().next().value);
 ```
+
 **Output:**
+
 ```
 34
 ```
@@ -78,10 +84,13 @@ public void setValue(int n) {
 Because the two methods `toString(int n)` and `toString()` are overloaded methods, having different parameter lists.
 
 (ii)
+
 ```java
 System.out.println(l1.toString());
 ```
+
 **Output:**
+
 ```
 2; 2
 ```
@@ -153,6 +162,7 @@ public boolean addChild(AbstractTreeNode node) {
 #### (d) Write a Java method and a Haskell function to check if a given value exists in an integer binary tree.
 
 **Java:**
+
 ```java
 public boolean hasValue(int n) {
     Queue<MyBTreeNode> queue = new LinkedList<>();
@@ -174,6 +184,7 @@ public boolean hasValue(int n) {
 ```
 
 **Haskell:**
+
 ```haskell
 hasValue :: BinaryTree Int -> Int -> Bool
 hasValue Empty _ = False
@@ -191,15 +202,19 @@ hasValue (Node value left right) n
 #### (a) Which of these statements are true and which are false?
 
 (i) An instance can be created from an abstract class.
+
 - **False**
 
 (ii) Multiple inheritance of interfaces is possible.
+
 - **True**
 
 (iii) A protected method in a class A can be accessed by a subclass of A.
+
 - **True**
 
 (iv) All classes and interfaces in Java are subclasses of the Object class.
+
 - **True**
 
 #### (b) Describe the four key principles of Object Oriented Programming.
@@ -212,6 +227,7 @@ hasValue (Node value left right) n
 #### (c) Describe these two approaches to polymorphism in Java: Overloading and Overriding.
 
 - **Overloading**: This occurs when two or more methods in the same class have the same name but different parameters. Example:
+
   ```java
   public class Example {
       public void display(int a) {
@@ -224,6 +240,7 @@ hasValue (Node value left right) n
   ```
 
 - **Overriding**: This occurs when a subclass provides a specific implementation for a method that is already defined in its superclass. Example:
+
   ```java
   public class Animal {
       public void sound() {
@@ -242,6 +259,7 @@ hasValue (Node value left right) n
 #### (d) Describe five key contrasts between these two pieces of code written in Java and Haskell.
 
 **Java:**
+
 ```java
 int[] x = new int[10];
 x[0] = 1;
@@ -250,6 +268,7 @@ for (int i=0; i<x.length-1; i++)
 ```
 
 **Haskell:**
+
 ```haskell
 map (2^) [0..9]
 ```
@@ -267,19 +286,24 @@ map (2^) [0..9]
 #### (a) What is the output from executing the following sequence of code?
 
 (i)
+
 ```java
 IntList x1 = new IntList(4);
 System.out.println(String.valueOf(x1.getValue() * x1.next().getValue()));
 ```
+
 **Output:**
+
 ```
-4
+16
 ```
 
 (ii)
+
 ```java
 System.out.println(x1.toString(10));
 ```
+
 **Output:**
 
 ```
@@ -287,6 +311,7 @@ System.out.println(x1.toString(10));
 ```
 
 (iii)
+
 ```java
 IntList x2 = new IntList(0);
 IntList x3 = x2.next().next().next();
@@ -294,6 +319,7 @@ x3.setValue(5);
 x3.next().next().setValue(8);
 System.out.println(x2.toString(8));
 ```
+
 **Output:**
 
 ```
@@ -301,10 +327,13 @@ System.out.println(x2.toString(8));
 ```
 
 (iv)
+
 ```java
 System.out.println(x3.previous().toString(2));
 ```
+
 **Output:**
+
 ```
 0; 5
 ```
@@ -337,13 +366,18 @@ public class IntListInc extends IntList {
 Because method overloading allows multiple methods with the same name but different parameter lists within the same class.
 
 (ii)
+
 ```java
 System.out.println(x1.toString());
 ```
+
 **Output:**
+
 ```
-4; 4
+StackOverflowError
 ```
+
+The error occurs due to an infinite recursion in the `toString()` method, which keeps creating and trying to print new `IntList` elements when `next` is `null`.
 
 #### (d) Write code using a `for` loop that takes an array `int[] ns` and constructs a new `IntList` object.
 
@@ -367,12 +401,33 @@ public class IntListFromArray extends IntList {
 ```
 
 Example usage:
+
 ```java
 int[] ns = {5, 2, 6, 7};
 IntList x5 = new IntListFromArray(ns);
 System.out.println(x5.toString(6));
+
+int[] ns = {5, 2, 6, 7};
+IntList x5 = new IntList(ns[0]);
+IntList current = x5;
+
+for (int i = 1; i < ns.length; i++) {
+    current.next = new IntList(ns[i]);
+    current.next.prev = current;
+    current = current.next;
+}
+
+for (int i = 0; i < 2; i++) {
+    current.next = new IntList(0);
+    current.next.prev = current;
+    current = current.next;
+}
+
+System.out.println(x5.toString(6));
 ```
+
 **Output:**
+
 ```
 5; 2; 6; 7; 0; 0
 ```
@@ -386,46 +441,57 @@ System.out.println(x5.toString(6));
 #### (a) Compile-time error, run-time exception, and best practice issue.
 
 **Line B:**
+
 ```java
 Parent obj2 = new Parent();
 ```
+
 - **Compile-time error**: None.
 - **Runtime exception**: None.
 - **Best practice issue**: None.
 
 **Line C:**
+
 ```java
 Parent obj3 = new Child();
 ```
+
 - **Compile-time error**: None.
 - **Runtime exception**: None.
 - **Best practice issue**: None.
 
 **Line D:**
+
 ```java
 Child obj4 = new Parent(); 
 ```
+
 - **Compile-time error**: Incompatible types: `Parent` cannot be converted to `Child`.
 
 **Line E:**
+
 ```java
 Child obj5 = (Child)obj2;
 ```
+
 - **Compile-time error**: None.
 - **Runtime exception**: ClassCastException at runtime as `obj2` is of type `Parent`.
 
 **Line F:**
+
 ```java
 Child obj6 = (Child)obj3;
 ```
+
 - **Compile-time error**: None.
 - **Runtime exception**: None, because `obj3` is of type `Child` at runtime.
-  
 
 **Line A**:
+
 ```java
 void PrintData() { ... }
 ```
+
 - **Best practice issue**: Missing `@Override` annotation to indicate method overriding.
 
 #### (b) Output of `PrintData()` for each viable object created within the main method.
@@ -444,6 +510,7 @@ obj6.PrintData(); // Output: "method of child class"
 Parametric polymorphism allows methods to operate on objects of various types while providing compile-time type safety. It is achieved using generics.
 
 **Example**:
+
 ```java
 public class Box<T> {
     private T value;
@@ -467,6 +534,7 @@ Integer value = intBox.get();
 **Abstraction** is the concept of hiding the complex implementation details and showing only the necessary features of an object.
 
 - **Java Example**: Using abstract classes and interfaces to define a contract without implementation details.
+
   ```java
   abstract class Shape {
       abstract void draw();
@@ -480,6 +548,7 @@ Integer value = intBox.get();
   ```
 
 - **Haskell Example**: Using type classes to define a contract.
+
   ```haskell
   class Shape a where
       draw :: a -> String
@@ -494,8 +563,11 @@ Integer value = intBox.get();
 #### (a) Exceptions in Java
 
 - **Definition**: Exceptions are events that disrupt the normal flow of the program's instructions.
+
 - **Causes**: Invalid user input, file not found, network connection failure, etc.
+
 - **Unhandled example**: If not handled, the program terminates abruptly.
+
   ```java
   int a = 5 / 0; // Causes ArithmeticException if not handled
   ```
@@ -508,7 +580,9 @@ Integer value = intBox.get();
 #### (c) Immutable in Java
 
 - **Definition**: Immutable objects cannot be modified after their creation.
+
 - **Example**: The `String` class.
+
   ```java
   String s = "Hello";
   s.concat(" World");
@@ -520,7 +594,9 @@ Integer value = intBox.get();
 #### (d) Scanner class in Java
 
 - **Function**: Used to read input from various sources (e.g., input streams, files).
+
 - **Example**: Reading user input from the console.
+
   ```java
   Scanner scanner = new Scanner(System.in);
   System.out.print("Enter your name: ");
@@ -612,6 +688,7 @@ Defining multiple constructors in a class with different parameter lists.
 #### (g) Correct the syntax, runtime, and logical error in the given code.
 
 **Original Code**:
+
 ```java
 public class Rand2 {
     public static void main(String[] args) {
@@ -628,7 +705,9 @@ public class Rand2 {
     }
 }
 ```
+
 **Corrections**:
+
 - Initialize `plus` and `minus` variables.
 - Change `for(int i=1; i<19; i++)` to `for(int i=0; i<20; i++)` for 20 iterations.
 
@@ -637,10 +716,12 @@ public class Rand2 {
 #### (a) Give two similarities and two differences between interfaces and classes.
 
 **Similarities**:
+
 1. Both can contain methods.
 2. Both can be used to define types.
 
 **Differences**:
+
 1. Interfaces cannot have instance fields; classes can.
 2. Classes can have constructors; interfaces cannot.
 
@@ -649,6 +730,7 @@ public class Rand2 {
 Method overriding allows a subclass to provide a specific implementation for a method already defined in its superclass.
 
 **Example**:
+
 ```java
 class Animal {
     void sound() {
@@ -667,6 +749,7 @@ class Dog extends Animal {
 #### (c) Class diagram
 
 **Description**:
+
 - Vehicle class: fields for color, maxSpeed, methods to set these fields, and a method to display them.
 - Engine class: methods `start` and `stop`.
 - Helicopter class: extends Vehicle, uses Engine.
@@ -697,6 +780,7 @@ class Dog extends Animal {
 #### (d) Write the three required classes
 
 **Vehicle.java**:
+
 ```java
 public class Vehicle {
     private String color;
@@ -717,6 +801,7 @@ public class Vehicle {
 ```
 
 **Engine.java**:
+
 ```java
 import java.time.LocalDateTime;
 
@@ -732,6 +817,7 @@ public class Engine {
 ```
 
 **Helicopter.java**:
+
 ```java
 public class Helicopter extends Vehicle {
     private Engine engine = new Engine();
@@ -747,6 +833,7 @@ public class Helicopter extends Vehicle {
 ```
 
 **HeliDemo.java**:
+
 ```java
 public class HeliDemo {
     public static void main(String[] args) {
@@ -798,6 +885,7 @@ Defining multiple constructors in a class with different parameter lists.
 #### (g) Correct the syntax, runtime, and logical error in the given code.
 
 **Original Code**:
+
 ```java
 public class Rand2 {
     public static void main(String[] args) {
@@ -814,7 +902,9 @@ public class Rand2 {
     }
 }
 ```
+
 **Corrections**:
+
 - Initialize `plus` and `minus` variables.
 - Change `for(int i=1; i<19; i++)` to `for(int i=0; i<20; i++)` for 20 iterations.
 
@@ -834,6 +924,7 @@ public class Rand2 {
 #### (b) Fill in the missing lines to complete the program and give the desired output.
 
 **Program**:
+
 ```java
 public class Exam1 {
     public static <E> void printArray(E[] inputArray) {
@@ -853,6 +944,7 @@ public class Exam1 {
 ```
 
 **Output**:
+
 ```
 1 2 3 4 5 
 H E L L O 0 
@@ -866,6 +958,7 @@ H E L L O 0
 #### (d) Describe, with examples, 3 different types of polymorphism.
 
 1. **Compile-time polymorphism (Method Overloading)**:
+
    ```java
    class Example {
        void display(int a) {
@@ -878,6 +971,7 @@ H E L L O 0
    ```
 
 2. **Runtime polymorphism (Method Overriding)**:
+
    ```java
    class Parent {
        void display() {
@@ -893,6 +987,7 @@ H E L L O 0
    ```
 
 3. **Subtype polymorphism (Interfaces)**:
+
    ```java
    interface Animal {
        void sound();
@@ -930,6 +1025,7 @@ Java has built-in memory management with garbage collection, bounds checking, an
 #### (b) What is the output from the following code.
 
 **Code**:
+
 ```java
 public class Test2 {
     public static void main(String args[]) {
@@ -957,6 +1053,7 @@ public class Test2 {
 ```
 
 **Output**:
+
 ```
 Error
 0
@@ -965,12 +1062,15 @@ Error
 #### (c) What is the 'final' keyword used for in Java, give examples of its use.
 
 **Usage**:
+
 1. **Final variable**: Value cannot be changed.
+
    ```java
    final int CONSTANT = 10;
    ```
 
 2. **Final method**: Cannot be overridden.
+
    ```java
    class Parent {
        final void display() {
@@ -980,6 +1080,7 @@ Error
    ```
 
 3. **Final class**: Cannot be subclassed.
+
    ```java
    final class FinalClass {}
    ```
@@ -987,6 +1088,7 @@ Error
 #### (d) The following code fails to compile. What operator is missing and what will the output be once the operator is correctly inserted, compiled and executed.
 
 **Original Code**:
+
 ```java
 public class Calculate {
     int num = 10;
@@ -1006,6 +1108,7 @@ public class Calculate {
 
 **Missing Operator**: `new`
 **Corrected Code**:
+
 ```java
 public class Calculate {
     int num = 10;
@@ -1024,6 +1127,7 @@ public class Calculate {
 ```
 
 **Output**:
+
 ```
 16
 ```
@@ -1031,6 +1135,7 @@ public class Calculate {
 #### (e) Examine the following code, write the 4 lines of output, giving the missing text.
 
 **Code**:
+
 ```java
 class People {
     public int age;
@@ -1069,4 +1174,5 @@ public class TestPeople {
 #### (f) Discuss the main concept the previous question highlights.
 
 **Concept**: Object references and immutability.
+
 - **Explanation**: Changes to the object's fields persist outside the method (change2), but reassigning the object reference (change1) does not affect the original reference.
