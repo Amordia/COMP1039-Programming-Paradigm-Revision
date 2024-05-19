@@ -92,8 +92,10 @@ System.out.println(l1.toString());
 **Output:**
 
 ```
-2; 2
+StackOverflowError
 ```
+
+The error occurs due to an infinite recursion in the `toString()` method, which keeps creating and trying to print new `IntList` elements when `next` is `null`.
 
 ### 2. Object-Oriented Programming/Java / Haskell Trees (25 marks)
 
@@ -403,10 +405,6 @@ public class IntListFromArray extends IntList {
 Example usage:
 
 ```java
-int[] ns = {5, 2, 6, 7};
-IntList x5 = new IntListFromArray(ns);
-System.out.println(x5.toString(6));
-
 int[] ns = {5, 2, 6, 7};
 IntList x5 = new IntList(ns[0]);
 IntList current = x5;
